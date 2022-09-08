@@ -9,8 +9,8 @@ on:
 #      - prereleased
   push:
     branches: [ "develop" ]
-  pull_request:
-    branches: [ "develop" ]
+#  pull_request:
+#    branches: [ "develop" ]
 
 jobs:
   build:
@@ -24,6 +24,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Print GitHub event action
+      run: |
+        echo "${{ github.event.action }}"
 
     - name: set app version
       run: |
