@@ -103,7 +103,6 @@ jobs:
       BUILD_VERSION: ${{ needs.build.outputs.build_version }}
     steps:
 
-      - run: actions/download-artifact@v3
       - name: Get build_version
         run:
           DEPLOYED_VERSION=$(curl -s ${{ env.VERSION_URL }} | jq -r '.build_version')
