@@ -1,16 +1,8 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
 name: Develop CI/CD
 
 on:
-#  release:
-#    types:
-#      - prereleased
   push:
     branches: [ "develop" ]
-#  pull_request:
-#    branches: [ "develop" ]
 
 env:
   ARTIFACT_TAG: "dev"
@@ -21,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: set app version
+    - name: Set version
       id: config
       run: |
         APP_VERSION=$(cat package.json | jq -r '.version')
@@ -31,24 +23,15 @@ jobs:
         echo "BUILD_VERSION=$(echo $BUILD_VERSION)" >> $GITHUB_ENV
         echo "ARTIFACT=$(echo $ARTIFACT)" >> $GITHUB_ENV
 
-    - name: show app version
-      run: |
-        echo "APP_VERSION: ${{ env.APP_VERSION }}"
-        echo "BUILD_VERSION: ${{ env.BUILD_VERSION }}"
-        echo "ARTIFACT: ${{ env.ARTIFACT }}"
-
     - uses: actions/setup-node@v3
       name: Setup NodeJs
       with:
         node-version: 16.x
         cache: 'npm'
-
-    - run: npm ci
-
-    - run: npm run build
-
-#    - run: |
-#        ls -alph dist/
+    - name: Build assets
+      run: |
+        npm ci
+        npm run build
 
     - name: Create dist archive
       run: |
@@ -58,22 +41,3 @@ jobs:
       uses: kittaakos/upload-artifact-as-is@v0
       with:
         path: ${{ env.ARTIFACT }}.tar.gz
-
-#    - name: Print GitHub event action
-#      run: |
-#        echo "author = ${{ github.event.head_commit.author.name }}"
-#        echo "github.event_name = ${{ github.event_name }}"
-#        echo "github.event_path = ${{ github.event_path }}"
-#        cat ${{ github.event_path }} | jq
-
-
-#    - name: Use Node.js ${{ matrix.node-version }}
-#      uses: actions/setup-node@v3
-#      with:
-##        node-version: ${{ matrix.node-version }}
-#        node-version: 16.x
-#        cache: 'npm'
-
-#    - run: npm ci
-#    - run: npm run build --if-present
-#    - run: npm test
