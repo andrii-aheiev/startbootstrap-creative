@@ -35,9 +35,12 @@ jobs:
         echo "BUILD_VERSION: ${{ env.BUILD_VERSION }}"
 
     - uses: actions/setup-node@v3
+      name: Setup NodeJs
       with:
         node-version: 16.x
         cache: 'npm'
+
+    - run: npm ci
 
 #    - name: Print GitHub event action
 #      run: |
