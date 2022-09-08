@@ -125,3 +125,7 @@ jobs:
             echo 'Test failed.'
             exit 1
           fi
+      - uses: rickstaa/action-create-tag@v1
+        with:
+          tag: ${{ env.BUILD_VERSION }}
+          message: "Build version ${{ env.BUILD_VERSION }}"
