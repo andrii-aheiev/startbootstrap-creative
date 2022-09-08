@@ -109,17 +109,14 @@ jobs:
           url: ${{ env.VERSION_URL }}
           method: GET
 
-      - name: Get build_version
+      - name: Get deployed version
         run: |
-          echo '${{ steps.http_get.outputs.response }}' | jq -r '.build_version'
           DEPLOYED_VERSION=$(echo '${{ steps.http_get.outputs.response }}' | jq -r '.build_version')
-          echo "DEPLOYED_VERSION is ${DEPLOYED_VERSION}"
+          echo "DEPLOYED_VERSION=$(echo $DEPLOYED_VERSION)" >> $GITHUB_ENV
 
-#          cat version.json | jq -r '.build_version'
-#          DEPLOYED_VERSION=$(cat version.json | jq -r '.build_version')
-#          echo "DEPLOYED_VERSION is ${DEPLOYED_VERSION}"
-
-#          cat version.json | jq -r '.build_version'
-
-#          cat version.json | jq -r '.build_version'
-#          echo "BUILD_VERSION = ${BUILD_VERSION}"
+      - name: Compare deployed version
+        run: |
+          if [ "${DEPLOYED_VERSION}" = "${BUILD_VERSION}" ]
+          then
+            echo 'Deployed version equal to build version'
+          fi
