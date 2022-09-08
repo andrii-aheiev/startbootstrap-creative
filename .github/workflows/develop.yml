@@ -26,14 +26,16 @@ jobs:
       run: |
         APP_VERSION=$(cat package.json | jq -r '.version')
         BUILD_VERSION="${APP_VERSION}-${{ env.ARTIFACT_TAG }}.${{ github.run_number }}"
+        ARTIFACT="${{ github.event.repository.name }}-${BUILD_VERSION}"
         echo "APP_VERSION=$(echo $APP_VERSION)" >> $GITHUB_ENV
         echo "BUILD_VERSION=$(echo $BUILD_VERSION)" >> $GITHUB_ENV
+        echo "ARTIFACT=$(echo $ARTIFACT)" >> $GITHUB_ENV
 
     - name: show app version
       run: |
         echo "APP_VERSION: ${{ env.APP_VERSION }}"
         echo "BUILD_VERSION: ${{ env.BUILD_VERSION }}"
-        echo ${{ github.event.repository.name }}
+        echo "ARTIFACT: ${{ env.ARTIFACT }}"
 
     - uses: actions/setup-node@v3
       name: Setup NodeJs
