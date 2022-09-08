@@ -116,11 +116,13 @@ jobs:
 
       - name: Compare deployed version
         run: |
-          if [[ "${DEPLOYED_VERSION}" == "${BUILD_VERSION}" ]]
+          if [[ "${DEPLOYED_VERSION}" -eq "${BUILD_VERSION}" ]]
           then
             echo '✅ Deployed version equal to build version.'
           else
             echo '❌ Deployed version does not much to the build version'
+            echo "DEPLOYED_VERSION is ${DEPLOYED_VERSION}"
+            echo "BUILD_VERSION is ${BUILD_VERSION}"
             echo 'Test failed.'
             exit 1
           fi
