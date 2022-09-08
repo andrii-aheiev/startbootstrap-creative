@@ -111,5 +111,5 @@ jobs:
 
       - name: Get build_version
         run:
-          echo ${{ steps.http_get.outputs.response }} | jq -r '.build_version'
+          echo '${{ steps.http_get.outputs.response }}' | jq -r '.build_version'
           echo "BUILD_VERSION = ${BUILD_VERSION}"
