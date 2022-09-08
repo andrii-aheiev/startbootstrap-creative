@@ -102,9 +102,13 @@ jobs:
     env:
       BUILD_VERSION: ${{ needs.build.outputs.build_version }}
     steps:
+      - name: Get deployed version
+        id: http_get
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: ${{ env.VERSION_URL }}
 
       - name: Get build_version
         run:
-          DEPLOYED_VERSION=$(curl -s ${{ env.VERSION_URL }} | jq -r '.build_version')
-          echo "DEPLOYED_VERSION ${DEPLOYED_VERSION}"
-          echo "BUILD_VERSION ${BUILD_VERSION}"
+          echo ${{ steps.http_get.outputs.response }}
+          echo "BUILD_VERSION = ${BUILD_VERSION}"
