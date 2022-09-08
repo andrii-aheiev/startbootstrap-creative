@@ -115,8 +115,10 @@ jobs:
           echo "DEPLOYED_VERSION=$(echo $DEPLOYED_VERSION)" >> $GITHUB_ENV
 
       - name: Compare deployed version
+        env:
+          BUILD_VERSION: 1.0.0
         run: |
-          if [ "${DEPLOYED_VERSION}" != "${BUILD_VERSION}" ]
+          if [[ "${DEPLOYED_VERSION}" == "${BUILD_VERSION}" ]]
           then
             echo 'Deployed version equal to build version'
           else
