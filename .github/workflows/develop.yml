@@ -125,7 +125,9 @@ jobs:
             echo 'Test failed.'
             exit 1
           fi
-      - uses: rickstaa/action-create-tag@v1
+
+      - name: Tag snapshot
+        uses: tvdias/github-tagger@v0.0.1
         with:
           tag: ${{ env.BUILD_VERSION }}
           message: "Build version ${{ env.BUILD_VERSION }}"
