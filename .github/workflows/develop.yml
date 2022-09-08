@@ -33,6 +33,7 @@ jobs:
       run: |
         echo "APP_VERSION: ${{ env.APP_VERSION }}"
         echo "BUILD_VERSION: ${{ env.BUILD_VERSION }}"
+        echo ${{ github.event.repository.name }}
 
     - uses: actions/setup-node@v3
       name: Setup NodeJs
@@ -46,6 +47,16 @@ jobs:
 
     - run: |
         ls -alph dist/
+
+#    - name: Create artifact
+#      run: |
+#        ls -alph ./dist
+#        tar -zcvf .tar.gz dist
+#
+#    - name: upload artifact
+#      uses: kittaakos/upload-artifact-as-is@v0
+#      with:
+#        path: build.tar.gz
 
 #    - name: Print GitHub event action
 #      run: |
