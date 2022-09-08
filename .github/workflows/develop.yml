@@ -24,9 +24,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
     - name: Print GitHub event action
       run: |
-        echo "${{ github.event.action }}"
+        echo "github.event = ${{ github.event }}"
+        echo "github.event_name = ${{ github.event_name }}"
+        echo "github.event_path = ${{ github.event_path }}"
 
     - name: set app version
       run: |
