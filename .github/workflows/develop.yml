@@ -110,8 +110,9 @@ jobs:
           method: GET
 
       - name: Get build_version
-        run:
-          echo '${{ steps.http_get.outputs.response }}' > version.json;
+        run: |
+          echo '${{ steps.http_get.outputs.response }}' > version.json
+          cat version.json | jq -r '.build_version'
           DEPLOYED_VERSION=$(cat version.json | jq -r '.build_version')
           echo "DEPLOYED_VERSION is ${DEPLOYED_VERSION}"
 
