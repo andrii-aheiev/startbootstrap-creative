@@ -34,6 +34,11 @@ jobs:
         echo "APP_VERSION: ${{ env.APP_VERSION }}"
         echo "BUILD_VERSION: ${{ env.BUILD_VERSION }}"
 
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+        cache: 'npm'
+
 #    - name: Print GitHub event action
 #      run: |
 #        echo "author = ${{ github.event.head_commit.author.name }}"
