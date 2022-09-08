@@ -42,6 +42,11 @@ jobs:
 
     - run: npm ci
 
+    - run: npm run build
+
+    - run: |
+        ls -alph dist/
+
 #    - name: Print GitHub event action
 #      run: |
 #        echo "author = ${{ github.event.head_commit.author.name }}"
