@@ -25,7 +25,7 @@ jobs:
       id: config
       run: |
         APP_VERSION=$(cat package.json | jq -r '.version')
-        BUILD_VERSION="${APP_VERSION}-${{ env.ARTIFACT_TAG }}-${{ github.run_number }}"
+        BUILD_VERSION="${APP_VERSION}-${{ env.ARTIFACT_TAG }}.${{ github.run_number }}"
         echo "APP_VERSION=$(echo $APP_VERSION)" >> $GITHUB_ENV
         echo "BUILD_VERSION=$(echo $BUILD_VERSION)" >> $GITHUB_ENV
 
