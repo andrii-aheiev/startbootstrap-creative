@@ -28,13 +28,25 @@ jobs:
       with:
         node-version: 16.x
         cache: 'npm'
+
     - name: Build assets
       run: |
         npm ci
         npm run build
 
+    - name: Create version file
+      run: |
+        cat <<- CONFIG > dist/version.json
+        {
+          "app_version": "${{ env.APP_VERSION }}",
+          "build_version": "${{ env.BUILD_VERSION }}"
+        };
+        CONFIG
+
     - name: Create dist archive
       run: |
+        ls -alp dist/
+        cat dist/version.json
         tar -zcvf ${{ env.ARTIFACT }}.tar.gz dist
 
     - name: Upload dist artifact
