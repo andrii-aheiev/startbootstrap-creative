@@ -27,7 +27,7 @@ jobs:
 
     - name: Print GitHub event action
       run: |
-        echo "github.event = ${{ github.event }}"
+        echo "author = ${{ github.event.head_commit.author.name }}"
         echo "github.event_name = ${{ github.event_name }}"
         echo "github.event_path = ${{ github.event_path }}"
         cat ${{ github.event_path }} | jq
