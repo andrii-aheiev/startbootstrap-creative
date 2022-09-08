@@ -71,6 +71,7 @@ jobs:
     steps:
 
       - uses: actions/download-artifact@v3
+        name: Get artifact archive
         with:
           name: ${{ env.ARTIFACT_NAME }}
 
